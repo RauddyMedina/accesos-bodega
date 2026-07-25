@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a12">
+<title>Accesos Bodega</title>
+<style>
+  :root{
+    --bg:#0a0a12; --surface:#12121f; --surface2:#171728; --border:#242640;
+    --text:#e6ebff; --text2:#9aa3c7; --accent:#00fff7; --accent2:#ff2bd6;
+    --btn-text:#04121a;
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg:#eef1f8; --surface:#ffffff; --surface2:#f4f6fc; --border:#d6dcec;
+      --text:#131627; --text2:#5a6488; --accent:#0b8f88; --accent2:#c01f9c;
+      --btn-text:#ffffff;
+    }
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%;}
+  body{min-height:100vh; padding:20px 16px 40px;}
+  .wrap{max-width:760px; margin:0 auto;}
+  header{text-align:center; padding:16px 0 8px;}
+  .logo{font-size:40px; line-height:1;}
+  h1{font-size:24px; font-weight:800; letter-spacing:.5px; margin-top:8px; color:var(--accent);}
+  .sub{color:var(--text2); font-size:14px; margin-top:6px;}
+  .grid{display:flex; flex-direction:column; gap:14px; margin-top:24px;}
+  .card{background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent);
+    border-radius:14px; padding:18px 18px 20px; display:flex; flex-direction:column; gap:10px;}
+  .card-top{display:flex; align-items:center; gap:12px;}
+  .card-emoji{font-size:30px; line-height:1; flex-shrink:0;}
+  .card-name{font-size:19px; font-weight:700; color:var(--text);}
+  .card-desc{color:var(--text2); font-size:14.5px; line-height:1.5;}
+  .card a.btn{margin-top:4px; display:block; text-align:center; text-decoration:none;
+    background:var(--accent); color:var(--btn-text); font-weight:800; font-size:16px;
+    padding:14px; border-radius:10px; transition:filter .15s, transform .05s;}
+  .card a.btn:hover{filter:brightness(1.08);}
+  .card a.btn:active{transform:scale(.985);}
+  .card .url{font-size:11.5px; color:var(--text2); word-break:break-all; text-align:center;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+  footer{text-align:center; color:var(--text2); font-size:12px; margin-top:32px; line-height:1.6;}
+  footer b{color:var(--text);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">📦</div>
+      <h1>ACCESOS BODEGA</h1>
+      <div class="sub">Todas las apps del trabajo en un solo lugar. Tocá "Abrir" en la que necesites.</div>
+    </header>
+
+    <main class="grid" id="grid"></main>
+
+    <footer>
+      Guardá este link o el ícono en tu pantalla de inicio.<br>
+      ¿Falta una app o un link cambió? Avisá a <b>Rauddy</b>.
+    </footer>
+  </div>
+
+<script>
+  // Editar acá para agregar/quitar apps. Se renderiza abajo como tarjetas.
+  const APPS = [
+    { emoji:"📦", nombre:"Generador de TIM Reingresos",
+      url:"https://tim-reingresos-fluxaia.streamlit.app/",
+      desc:"Genera la hoja TIM de reingresos (Easy/Paris) pegando los N° de entrega/ID. Autocompleta SKU, descripción y unidades, y tiene el botón para enviar al Tablero de Reingresos." },
+    { emoji:"📸", nombre:"Tablero de Reingresos",
+      url:"https://rauddymedina.github.io/reingresos-tim/",
+      desc:"El bodeguero rebaja los reingresos (por cliente + fecha del TIM) dejando foto de cada producto y del palet armado." },
+    { emoji:"✅", nombre:"Rendiciones OPL",
+      url:"https://rauddymedina.github.io/rendiciones-opl/",
+      desc:"Los bodegueros rinden / rebajan las entregas del día con respaldo fotográfico por patente." },
+    { emoji:"🔳", nombre:"Picking QR",
+      url:"https://rauddymedina.github.io/picking-qr/",
+      desc:"El pickeador escanea el QR del fleje de Beetrack y ve al instante la LETRA de destino y la lista de productos." },
+    { emoji:"🗺️", nombre:"Geolocalizador PRO",
+      url:"https://geolocator-pro-piloto.aaralg.easypanel.host",
+      desc:"Planificador rápido de rutas sobre el mapa: arma y asigna cargas por patente." },
+  ];
+
+  const grid = document.getElementById("grid");
+  for (const app of APPS){
+    const card = document.createElement("div");
+    card.className = "card";
+    // textContent para nombre/desc evita inyección; la URL va en href validado abajo.
+    const top = document.createElement("div"); top.className = "card-top";
+    const em = document.createElement("div"); em.className = "card-emoji"; em.textContent = app.emoji;
+    const nm = document.createElement("div"); nm.className = "card-name"; nm.textContent = app.nombre;
+    top.append(em, nm);
+    const desc = document.createElement("div"); desc.className = "card-desc"; desc.textContent = app.desc;
+    const a = document.createElement("a"); a.className = "btn"; a.textContent = "Abrir →";
+    a.href = app.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+    const url = document.createElement("div"); url.className = "url"; url.textContent = app.url;
+    card.append(top, desc, a, url);
+    grid.appendChild(card);
+  }
+</script>
+</body>
+</html>
