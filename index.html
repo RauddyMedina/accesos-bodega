@@ -80,6 +80,10 @@
     { emoji:"🔳", nombre:"Picking QR",
       url:"https://rauddymedina.github.io/picking-qr/",
       desc:"El pickeador escanea el QR del fleje de Beetrack y ve al instante la LETRA de destino y la lista de productos." },
+    { emoji:"🔫", nombre:"Escáner de Bodega (programa PC)",
+      url:"https://drive.google.com/file/d/1_oAvW1fhx6K_3azefqCOUXP9h6TCs2AT/view",
+      boton:"Descargar (Windows) ⬇",
+      desc:"Programa para el computador de bodega (Windows). Se pistolea el cartón con la pistola USB y muestra al instante la LETRA de destino y los productos del ID, registrando cada escaneo. No es una web: se descarga y se ejecuta en el PC." },
     { emoji:"🗺️", nombre:"Geolocalizador PRO",
       url:"https://geolocator-pro-piloto.aaralg.easypanel.host",
       desc:"Planificador rápido de rutas sobre el mapa: arma y asigna cargas por patente." },
@@ -95,7 +99,7 @@
     const nm = document.createElement("div"); nm.className = "card-name"; nm.textContent = app.nombre;
     top.append(em, nm);
     const desc = document.createElement("div"); desc.className = "card-desc"; desc.textContent = app.desc;
-    const a = document.createElement("a"); a.className = "btn"; a.textContent = "Abrir →";
+    const a = document.createElement("a"); a.className = "btn"; a.textContent = app.boton || "Abrir →";
     a.href = app.url; a.target = "_blank"; a.rel = "noopener noreferrer";
     const url = document.createElement("div"); url.className = "url"; url.textContent = app.url;
     card.append(top, desc, a, url);
